@@ -21,7 +21,7 @@ v4_cidr_blocks = ["192.168.10.0/24"]
 resource "yandex_compute_instance" "virtual_machine" {
   for_each        = var.virtual_machines
   name = each.value["vm_name"]
-
+  platform_id = each.value["vm_platform_id"]
  resources {
     cores  = each.value["vm_cpu"]
     core_fraction = each.value["vm_core_fraction"]
