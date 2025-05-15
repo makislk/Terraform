@@ -1,0 +1,10 @@
+#cloud-config
+users:
+  - name: s19558254
+    groups: sudo
+    shell: /bin/bash
+    sudo: 'ALL=(ALL) NOPASSWD:ALL'
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN7eh44zr2mX5YK2XA8LsYx1EyCb2a/YevqE2ELZDsLp
+package_update: True
+package_upgrade: True

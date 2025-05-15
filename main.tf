@@ -12,20 +12,20 @@ resource "yandex_vpc_network" "network-1" {
 }
 
 resource "yandex_vpc_subnet" "subnet-1" {
-name = "subnet1"
-zone = "ru-central1-a"
-network_id = yandex_vpc_network.network-1.id
-v4_cidr_blocks = ["192.168.10.0/24"]
+  name           = "subnet1"
+  zone           = "ru-central1-a"
+  network_id     = yandex_vpc_network.network-1.id
+  v4_cidr_blocks = ["192.168.10.0/24"]
 }
 
 resource "yandex_compute_instance" "virtual_machine" {
-  for_each        = var.virtual_machines
-  name = each.value["vm_name"]
+  for_each    = var.virtual_machines
+  name        = each.value["vm_name"]
   platform_id = each.value["vm_platform_id"]
- resources {
-    cores  = each.value["vm_cpu"]
+  resources {
+    cores         = each.value["vm_cpu"]
     core_fraction = each.value["vm_core_fraction"]
-    memory = each.value["ram"]
+    memory        = each.value["ram"]
   }
   scheduling_policy {
     preemptible = each.value["vm_preemptible"]
@@ -37,8 +37,9 @@ resource "yandex_compute_instance" "virtual_machine" {
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet-1.id
     nat       = true
+    # ip_address = each.value["internal_ip"]
   }
-   metadata = {
-     ssh-keys = "s19558254:${file("~/.ssh/id_ed25519.pub")}"
-   } 
+  metadata = {
+    user-data = "${file("meta.txt")}"
+  }
 }

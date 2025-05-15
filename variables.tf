@@ -1,9 +1,9 @@
 variable "virtual_machines" {
- default = ""
+  default = ""
 }
 variable "TF_CLI_ARGS_plan" {
- default = "100"
+  default = "100"
 }
 variable "TF_CLI_ARGS_apply" {
- default = "100"
+  default = "100"
 }
